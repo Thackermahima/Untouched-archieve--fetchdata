@@ -6,7 +6,7 @@ export const BookContext = createContext();
 
 export const BookContextProvider = (props) => {
     const { Moralis } = useMoralis();
-    const[data, setData] = useState()
+    const[data, setData] = useState([])
 const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
 const client = new Web3Storage({ token: API_Token})
 const untouchedA = Moralis.Object.extend("UntouchedArchieve");
@@ -37,17 +37,17 @@ function addData(Item){
   return files;
 
 }
-    async function storeFiles(){
-        let files = addData()
+    async function storeFiles(Item){
+      var  array = [];
+        let files = addData(Item)
         const cid = await client.put(files);
         UntoucheDdata.set("CID", cid);
         UntoucheDdata.save();
         console.log("stored files with cid", cid);
         axios.get( `https://${cid}.ipfs.infura-ipfs.io/data.json`)
         .then(function (response) {
-       setData(response.data)
-    
-            console.log(response);
+            array.push(response.data);
+         setData(array) ;
           })
           .catch(function (error) {
             console.log(error);

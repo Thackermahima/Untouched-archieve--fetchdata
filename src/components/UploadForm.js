@@ -18,37 +18,37 @@ function UploadForm() {
     const nameEvent = (e) => {
         setName(e.target.value)
     }
-    console.log(name);
+    
 
     const subjectEvent = (e) => {
         setSubject(e.target.value || null)
     }
-    console.log(subject);
+  
 
-    const categoryEvent = (e) => {
-        setCategory(e.target.value)
-    }
-    console.log(category);
+    // const categoryEvent = (e) => {
+    //     setCategory(e.target.value)
+    // }
+   
 
     const websiteEvent = (e) => {
         setWebsite(e.target.value)
     }
-    console.log(website);
+   
 
     const descriptionEvent = (e) => {
         setDescription(e.target.value)
     }
-    console.log(description);
+ 
 
     const fileEvent = (e) => {
         setFile(e.target.files[0])
     }
-    console.log(file);
+ 
 
     const checkboxEvent = (e) => {
         setCheckbox(e.target.checked)
     }
-    console.log(checkbox);
+   
 
     let Item = {
         name: name,
@@ -59,12 +59,12 @@ function UploadForm() {
         description: description,
         checkbox: checkbox
     }
-    console.log(Item);
+  
     
     function onFormSubmit(e) {
-        e.preventDefault()
-        console.log(Item,'form submit');
-      
+        e.preventDefault() 
+        addData();
+        storeFiles(Item)
         setName('');
         setSubject('');
         setCategory('');
@@ -72,8 +72,7 @@ function UploadForm() {
         setWebsite('')
         setDescription('');
         setCheckbox(null);
-        addData(Item);
-        storeFiles()
+       
        
     }
    
@@ -130,16 +129,14 @@ const UntoucheDdata  = new untouchedA();
 
                     <label for="field2"><span>Subject <span className="required">*</span></span><input value={subject} placeholder="Subject" onChange={subjectEvent} type="text" class="input-field" name="field2" /></label>
 
-                    <label for="field4"><span>Category</span><select value={category || null} name="field4" onChange={categoryEvent} className="select-field">
-                        <option value="Book">Book</option>
+                    <label for="field4"><span>Category</span><select value={category} name="field4" onChange={(e)=>setCategory(e.target.value)} className="select-field">
+                        <option defaultChecked defaultValue="Book" value="Book">Book</option>
                         <option value="Documents">Documents</option>
                         <option value="Newspaper">Newspaper</option>
-                        <option value="Website / Snapshot">Website / Snapshot</option>
+                        <option value="Website">Website / Snapshot</option>
                     </select></label>
 
-                    {
-
-                    }
+                    
                     <label for="field6"><span>Choose file</span><input className="file-input" value={undefined} onChange={fileEvent} type="file"></input></label>
 
                     <label for="field7"><span>Add website</span><input value={website} className="add-url" placeholder="add URL" onChange={websiteEvent} type="url"></input></label>
